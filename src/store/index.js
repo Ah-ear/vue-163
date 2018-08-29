@@ -20,7 +20,10 @@ const store = new Vuex.Store({
 		getLists(store){
 			Vue.jsonp('http://3g.163.com/touch/jsonp/sy/recommend/0-9.html').then( data => {
 				console.log('data',data);
-				var list = data.list.map(item => {
+				var list = data.list.filter(item => {
+					return item.addData == null&&item.picInfo.length!=0
+				}).map(item => {
+					console.log('item',item)
 					return{
 						title:item.title,
 						src:item.picInfo[0].url,
